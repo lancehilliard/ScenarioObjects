@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>ScenarioObjects</id>
-    <version>1.0.0.1</version>
+    <version>1.0.0.2</version>
     <title>ScenarioObjects</title>
     <authors>Lance Hilliard</authors>
     <owners>Lance Hilliard</owners>
     <projectUrl>https://github.com/lancehilliard/ScenarioObjects</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ScenarioObjects is a spec-writing template for focusing more on behaviors and less on arbitrary values.</description>
-    <releaseNotes>First Release.</releaseNotes>
+    <releaseNotes>Improved in-file documentation for ScenarioObjects.cs</releaseNotes>
     <copyright>Copyright 2012</copyright>
     <tags></tags>
     <dependencies>
