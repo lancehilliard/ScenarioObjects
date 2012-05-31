@@ -33,36 +33,42 @@ Without ScenarioObjects, you create all of your fields in your scenario class.
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information {
         Establish context = () => {
-            WidgetCreateViewFake = MockRepository.GenerateMock<IWidgetCreateView>();
-            ApplianceRepositoryFake = MockRepository.GenerateMock<IApplianceRepository>();
+            CreateViewFake = MockRepository.GenerateMock<IWidgetCreateView>();
+            ApplianceRepoFake = MockRepository.GenerateMock<IApplianceRepository>();
             WidgetFactoryFake = MockRepository.GenerateMock<IWidgetFactory>();
-            WidgetRepositoryFake = MockRepository.GenerateMock<IWidgetRepository>();
+            WidgetRepoFake = MockRepository.GenerateMock<IWidgetRepository>();
 
             ApplianceIdValue = 42;
             ApplianceValue = new Appliance(null, null);
-            WidgetCreateEventArgsValue = new WidgetCreateEventArgs(null, null, null, null, 0, null);
+            CreateEventArgsValue = new WidgetCreateEventArgs(null, null, null, null, 0, null);
             WidgetValue = new Widget(null);
 
-            WidgetCreateViewFake.Stub(x => x.ApplianceId).Return(ApplianceIdValue);
-            ApplianceRepositoryFake.Stub(x => x.FindById(ApplianceIdValue)).Return(ApplianceValue);
-            WidgetFactoryFake.Stub(x => x.Create(WidgetCreateEventArgsValue)).Return(WidgetValue);
-            new WidgetCreatePresenter(WidgetCreateViewFake, ApplianceRepositoryFake, WidgetFactoryFake, WidgetRepositoryFake);
+            CreateViewFake.Stub(x => x.ApplianceId).Return(ApplianceIdValue);
+            ApplianceRepoFake.Stub(x => x.FindById(ApplianceIdValue)).Return(ApplianceValue);
+            WidgetFactoryFake.Stub(x => x.Create(CreateEventArgsValue)).Return(WidgetValue);
+            new WidgetCreatePresenter(CreateViewFake, ApplianceRepoFake, WidgetFactoryFake, WidgetRepoFake);
         };
 
-        Because action = () => WidgetCreateViewFake.Raise(x => x.WidgetCreateRequested += null, null, WidgetCreateEventArgsValue);
+        Because of = () => {
+            CreateViewFake.Raise(x => x.WidgetCreateRequested += null, null, CreateEventArgsValue);
+        }
 
-        It should_add_the_widget = () => WidgetRepositoryFake.AssertWasCalled(x => x.Store(WidgetValue));
+        It should_add_the_widget = () => {
+            WidgetRepoFake.AssertWasCalled(x => x.Store(WidgetValue));
+        }
 
-        It should_show_the_updated_appliance = () => WidgetCreateViewFake.AssertWasCalled(x => x.Appliance = ApplianceValue);
+        It should_show_the_updated_appliance = () => {
+            CreateViewFake.AssertWasCalled(x => x.Appliance = ApplianceValue);
+        }
 
-        static IWidgetCreateView WidgetCreateViewFake;
+        static IWidgetCreateView CreateViewFake;
         static int ApplianceIdValue;
-        static IApplianceRepository ApplianceRepositoryFake;
+        static IApplianceRepository ApplianceRepoFake;
         static IAppliance ApplianceValue;
         static IWidgetFactory WidgetFactoryFake;
-        static WidgetCreateEventArgs WidgetCreateEventArgsValue;
+        static WidgetCreateEventArgs CreateEventArgsValue;
         static IWidget WidgetValue;
-        static IWidgetRepository WidgetRepositoryFake;
+        static IWidgetRepository WidgetRepoFake;
     }
 
 ## With ScenarioObjects
@@ -72,17 +78,23 @@ As you start to use ScenarioObjects, your scenario classes get much smaller and 
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information : ScenarioObjects {
         Establish context = () => {
-            WidgetCreateViewFake.Stub(x => x.ApplianceId).Return(ApplianceIdValue);
-            ApplianceRepositoryFake.Stub(x => x.FindById(ApplianceIdValue)).Return(ApplianceValue);
-            WidgetFactoryFake.Stub(x => x.Create(WidgetCreateEventArgsValue)).Return(WidgetValue);
-            new WidgetCreatePresenter(WidgetCreateViewFake, ApplianceRepositoryFake, WidgetFactoryFake, WidgetRepositoryFake);
+            CreateViewFake.Stub(x => x.ApplianceId).Return(ApplianceIdValue);
+            ApplianceRepoFake.Stub(x => x.FindById(ApplianceIdValue)).Return(ApplianceValue);
+            WidgetFactoryFake.Stub(x => x.Create(CreateEventArgsValue)).Return(WidgetValue);
+            new WidgetCreatePresenter(CreateViewFake, ApplianceRepoFake, WidgetFactoryFake, WidgetRepoFake);
         };
 
-        Because action = () => WidgetCreateViewFake.Raise(x => x.WidgetCreateRequested += null, null, WidgetCreateEventArgsValue);
+        Because of = () => {
+            CreateViewFake.Raise(x => x.WidgetCreateRequested += null, null, CreateEventArgsValue);
+        }
 
-        It should_add_the_widget = () => WidgetRepositoryFake.AssertWasCalled(x => x.Store(WidgetValue));
+        It should_add_the_widget = () => {
+            WidgetRepoFake.AssertWasCalled(x => x.Store(WidgetValue));
+        }
 
-        It should_show_the_updated_appliance = () => WidgetCreateViewFake.AssertWasCalled(x => x.Appliance = ApplianceValue);
+        It should_show_the_updated_appliance = () => {
+            CreateViewFake.AssertWasCalled(x => x.Appliance = ApplianceValue);
+        }
     }
 
 
@@ -106,12 +118,12 @@ As you start to use ScenarioObjects, your scenario classes get much smaller and 
 
         static void AssignSystemsUnderTest() {}
 
-        protected static IWidgetCreateView WidgetCreateViewFake;
+        protected static IWidgetCreateView CreateViewFake;
         protected static int ApplianceIdValue;
-        protected static IApplianceRepository ApplianceRepositoryFake;
+        protected static IApplianceRepository ApplianceRepoFake;
         protected static IAppliance ApplianceValue;
         protected static IWidgetFactory WidgetFactoryFake;
-        protected static WidgetCreateEventArgs WidgetCreateEventArgsValue;
+        protected static WidgetCreateEventArgs CreateEventArgsValue;
         protected static IWidget WidgetValue;
-        protected static IWidgetRepository WidgetRepositoryFake;
+        protected static IWidgetRepository WidgetRepoFake;
     }
