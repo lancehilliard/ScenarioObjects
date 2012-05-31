@@ -26,4 +26,39 @@ Documentation appears above each method.
 
 ScenarioObjects is where you define field variables for each object your scenario classes will use as you compose your specifications/tests. As more and more specs regard the same scenario objects, you'll save more and more time writing tests, as you discover that the objects you need to compose the specifications are already defined and assigned in ScenarioObjects.
 
-TODO -- show before/after examples demonstrating power of ScenarioObjects for cleaning up the scenario classes
+## Without ScenarioObjects
+
+    [Subject("Appliance Designer Adds Widget to Appliance")]
+    public class when_user_provides_minimum_required_widget_information {
+        Establish context = () => {
+            WidgetCreateViewFake = MockRepository.GenerateMock<IWidgetCreateView>();
+            ApplianceRepositoryFake = MockRepository.GenerateMock<IApplianceRepository>();
+            WidgetFactoryFake = MockRepository.GenerateMock<IWidgetFactory>();
+            WidgetRepositoryFake = MockRepository.GenerateMock<IWidgetRepository>();
+
+            ApplianceIdValue = 42;
+            ApplianceValue = new Appliance(null, null);
+            WidgetCreateEventArgsValue = new WidgetCreateEventArgs(null, null, null, null, 0, null);
+            WidgetValue = new Widget(null);
+
+            WidgetCreateViewFake.Stub(x => x.ApplianceId).Return(ApplianceIdValue);
+            ApplianceRepositoryFake.Stub(x => x.FindById(ApplianceIdValue)).Return(ApplianceValue);
+            WidgetFactoryFake.Stub(x => x.Create(WidgetCreateEventArgsValue)).Return(WidgetValue);
+            new WidgetCreatePresenter(WidgetCreateViewFake, ApplianceRepositoryFake, WidgetFactoryFake, WidgetRepositoryFake);
+        };
+
+        Because action = () => WidgetCreateViewFake.Raise(x => x.WidgetCreateRequested += null, null, WidgetCreateEventArgsValue);
+
+        It should_add_the_widget = () => WidgetRepositoryFake.AssertWasCalled(x => x.Store(WidgetValue));
+
+        It should_show_the_updated_appliance = () => WidgetCreateViewFake.AssertWasCalled(x => x.Appliance = ApplianceValue);
+
+        static IWidgetCreateView WidgetCreateViewFake;
+        static int ApplianceIdValue;
+        static IApplianceRepository ApplianceRepositoryFake;
+        static IAppliance ApplianceValue;
+        static IWidgetFactory WidgetFactoryFake;
+        static WidgetCreateEventArgs WidgetCreateEventArgsValue;
+        static IWidget WidgetValue;
+        static IWidgetRepository WidgetRepositoryFake;
+    }
