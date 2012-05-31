@@ -62,3 +62,52 @@ ScenarioObjects is where you define field variables for each object your scenari
         static IWidget WidgetValue;
         static IWidgetRepository WidgetRepositoryFake;
     }
+
+## With ScenarioObjects
+
+    [Subject("Appliance Designer Adds Widget to Appliance")]
+    public class when_user_provides_minimum_required_widget_information : ScenarioObjects {
+        Establish context = () => {
+            WidgetCreateViewFake.Stub(x => x.ApplianceId).Return(ApplianceIdValue);
+            ApplianceRepositoryFake.Stub(x => x.FindById(ApplianceIdValue)).Return(ApplianceValue);
+            WidgetFactoryFake.Stub(x => x.Create(WidgetCreateEventArgsValue)).Return(WidgetValue);
+            new WidgetCreatePresenter(WidgetCreateViewFake, ApplianceRepositoryFake, WidgetFactoryFake, WidgetRepositoryFake);
+        };
+
+        Because action = () => WidgetCreateViewFake.Raise(x => x.WidgetCreateRequested += null, null, WidgetCreateEventArgsValue);
+
+        It should_add_the_widget = () => WidgetRepositoryFake.AssertWasCalled(x => x.Store(WidgetValue));
+
+        It should_show_the_updated_appliance = () => WidgetCreateViewFake.AssertWasCalled(x => x.Appliance = ApplianceValue);
+    }
+
+
+    public class ScenarioObjects {
+        Establish c = () => {
+            AssignFakes();
+            AssignDeliberates();
+            AssignArbitraryValues();
+            AssignSystemsUnderTest();
+        };
+
+        static void AssignFakes() {
+            Foo.AssignFakes<ScenarioObjects>(FakeMaker<MockRepository>.Make);
+        }
+
+        static void AssignDeliberates() {}
+
+        static void AssignArbitraryValues() {
+            Foo.AssignArbitraryValues<ScenarioObjects>();
+        }
+
+        static void AssignSystemsUnderTest() {}
+
+        protected static IWidgetCreateView WidgetCreateViewFake;
+        protected static int ApplianceIdValue;
+        protected static IApplianceRepository ApplianceRepositoryFake;
+        protected static IAppliance ApplianceValue;
+        protected static IWidgetFactory WidgetFactoryFake;
+        protected static WidgetCreateEventArgs WidgetCreateEventArgsValue;
+        protected static IWidget WidgetValue;
+        protected static IWidgetRepository WidgetRepositoryFake;
+    }
