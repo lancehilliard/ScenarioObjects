@@ -22,7 +22,7 @@ Once ScenarioObjects is installed, you'll find ScenarioObjects.cs in the root of
   AssignSystemsUnderTest();
 </pre>
 
-Documentation appears above each method.
+Documentation appears in your editor above each method.
 
 ScenarioObjects is where you define field variables for each object your scenario classes will use as you compose your specifications/tests. As more and more specs regard the same scenario objects, you'll save more and more time writing tests, as you discover that the objects you need to compose the specifications are already defined and assigned in ScenarioObjects.
 
