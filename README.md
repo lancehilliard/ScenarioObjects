@@ -28,6 +28,8 @@ ScenarioObjects is where you define field variables for each object your scenari
 
 ## Without ScenarioObjects
 
+Without ScenarioObjects, you create all of your fields in your scenario class.
+
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information {
         Establish context = () => {
@@ -64,6 +66,8 @@ ScenarioObjects is where you define field variables for each object your scenari
     }
 
 ## With ScenarioObjects
+
+As you start to use ScenarioObjects, your scenario classes get much smaller and easier to read. Every scenario class is another opportunity to re-use a field from ScenarioObjects.
 
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information : ScenarioObjects {
