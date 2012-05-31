@@ -28,7 +28,7 @@ ScenarioObjects is where you define field variables for each object your scenari
 
 ## Without ScenarioObjects
 
-Without ScenarioObjects, you create all of your fields in your scenario class.
+Without ScenarioObjects, you create all of your fields in your scenario class. More than half of your context is assigning values to use in the scenario's tests and regards nothing about the behavior of the SUT. Add the lines defining those fields, and it's over half your class!
 
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information {
@@ -71,9 +71,11 @@ Without ScenarioObjects, you create all of your fields in your scenario class.
         static IWidgetRepository WidgetRepoFake;
     }
 
+This noise is repeated in every scenario class. You can clean things up a bit with parent classes per context or story (or epic), but the fields in *those* parent classes start to duplicate themselves before long, and you can find yourself in inheritance soup in no time.
+
 ## With ScenarioObjects
 
-As you start to use ScenarioObjects, your scenario classes get much smaller and easier to read. Every scenario class is another opportunity to re-use a field from ScenarioObjects.
+As you start to use ScenarioObjects, your scenario classes get much smaller and easier to read. The class below is ~70% smaller than the class above, and it does a better job of communicating the behavior that the spec is designed to protect.
 
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information : ScenarioObjects {
@@ -127,3 +129,5 @@ As you start to use ScenarioObjects, your scenario classes get much smaller and 
         protected static IWidget WidgetValue;
         protected static IWidgetRepository WidgetRepoFake;
     }
+
+As more and more scenario classes extend ScenarioObjects, it grows to offer you more and more re-usable fields.
