@@ -99,7 +99,6 @@ As you start to use ScenarioObjects, your scenario classes get much smaller and 
         }
     }
 
-
     public class ScenarioObjects {
         Establish c = () => {
             AssignFakes();
