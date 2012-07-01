@@ -9,11 +9,11 @@ You can install ScenarioObjects using [NuGet](http://nuget.org/packages/Scenario
 
 # What is it?
 
-ScenarioObjects is a parent class for your [Machine.Specifications](https://github.com/machine/machine.specifications) scenario classes. It gives you a single place, above those classes, to define and assign the objects that all of those classes will share. Its use results in cleaner spec classes that you write in less time.
+ScenarioObjects is a parent class for your [Machine.Specifications](https://github.com/machine/machine.specifications) scenario classes. With a single place to define the objects that all of your spec classes will share, you write **cleaner spec classes in less time**.
 
 # Getting Started with ScenarioObjects
 
-Once ScenarioObjects is installed, you'll find ScenarioObjects.cs in the root of your project. It will contain four methods:
+Adding ScenarioObjects to your project adds ScenarioObjects.cs to its root folder. It will contain four methods:
 
 <pre>
   AssignFakes();
@@ -22,13 +22,13 @@ Once ScenarioObjects is installed, you'll find ScenarioObjects.cs in the root of
   AssignSystemsUnderTest();
 </pre>
 
-Documentation appears in your editor above each method.
+Documentation appears in your editor above each method. Each method serves a different purpose.
 
-ScenarioObjects is where you define field variables for each object your scenario classes will use as you compose your entire suite of specifications/tests. As more and more specs regard the same business/domain concepts, you'll save more and more time writing tests, as you discover that the objects you need to compose the specifications are already defined and assigned, ready for use. ScenarioObjects begins to act as an ever-growing vocabulary for your spec classes.
+Define field objects your scenario classes will use as your suite of specifications/tests grows. As more and more tests specify the same domain, you'll save more and more time -- the objects/variables you need to compose your next spec are already defined and assigned in ScenarioObjects, ready for use. ScenarioObjects begins to act as an ever-growing vocabulary for your spec classes.
 
 ## Without ScenarioObjects
 
-Without ScenarioObjects, you create all of your fields in your scenario class. More than half of your context is assigning values to use in the scenario's tests and regards nothing about the behavior of the SUT. Add the lines defining those fields, and it's over half your class!
+Without ScenarioObjects, you declare fields in your scenario class. These value assignments don't express behavior and bloat your spec class.
 
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information {
@@ -71,11 +71,11 @@ Without ScenarioObjects, you create all of your fields in your scenario class. M
         static IWidgetRepository WidgetRepoFake;
     }
 
-This noise is repeated in every scenario class. You can clean things up a bit with parent classes per context or story (or epic), but the fields in *those* parent classes start to duplicate themselves before long, and you can find yourself in inheritance soup in no time.
+This noise is repeated in every scenario class. Over and over. You can clean things up a bit with lots of parent classes, but avoiding duplication in the parent classes can lend itself to tests that span multiple files.
 
 ## With ScenarioObjects
 
-As you start to use ScenarioObjects, your scenario classes get much smaller and easier to read. The class below is ~70% smaller than the class above, and it does a better job of communicating the behavior that the spec is designed to protect.
+ScenarioObjects makes your spec classes much smaller and easier to read (don't forget: these classes are documentation for your system!). The class below tests the same behavior as the class above and is **~70% smaller**. It does a better job of communicating the behavior that the spec is designed to protect.
 
     [Subject("Appliance Designer Adds Widget to Appliance")]
     public class when_user_provides_minimum_required_widget_information : ScenarioObjects {
@@ -98,6 +98,8 @@ As you start to use ScenarioObjects, your scenario classes get much smaller and 
             CreateViewFake.AssertWasCalled(x => x.Appliance = ApplianceValue);
         }
     }
+
+Here's what the single ScenarioObjects parent class looks like. Every field in this class is re-usable. Every re-use of a ScenarioObjects field by another spec class lessens the test code you have to maintain.
 
     public class ScenarioObjects {
         Establish c = () => {
@@ -129,4 +131,4 @@ As you start to use ScenarioObjects, your scenario classes get much smaller and 
         protected static IWidgetRepository WidgetRepoFake;
     }
 
-As more and more scenario classes extend ScenarioObjects, it grows to offer you more and more re-usable fields.
+As more and more spec classes use ScenarioObjects, it grows to offer you more and more re-usable fields.
