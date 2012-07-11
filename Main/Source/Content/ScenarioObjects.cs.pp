@@ -83,6 +83,6 @@ namespace $rootnamespace$ {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ScenarioObjects<T> : ScenarioObjects {
-        protected T Result;
+        static protected T Result;
     }
 }
