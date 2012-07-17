@@ -11,7 +11,7 @@ You can install ScenarioObjects using [NuGet](http://nuget.org/packages/Scenario
 
 ScenarioObjects is a parent class for your [Machine.Specifications](https://github.com/machine/machine.specifications) scenario classes. With a single place to define the objects that all of your spec classes will share, you write **cleaner spec classes in less time**, creating a ubiquitous, reusable domain language for your test suite.
 
-[[Tutorial Videos|Videos]] are available to help you get started.
+[Tutorial Videos](https://github.com/lancehilliard/ScenarioObjects/wiki/Videos) are available to help you get started.
 
 # Getting Started with ScenarioObjects
 
