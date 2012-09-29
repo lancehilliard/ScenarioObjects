@@ -1,4 +1,5 @@
-﻿using ArbitraryValues;
+﻿using System;
+using ArbitraryValues;
 using ArbitraryValues.FakeMakers;
 using Machine.Specifications;
 using Rhino.Mocks;
@@ -75,6 +76,11 @@ namespace $rootnamespace$ {
         static void AssignSystemsUnderTest() {
 
         }
+
+	// example Value variables -- add more which describe the concepts of your domain
+	protected static string StringValue;
+	protected static int IntegerValue;
+	protected static Exception ExceptionValue;
     }
 
     /// <summary>
