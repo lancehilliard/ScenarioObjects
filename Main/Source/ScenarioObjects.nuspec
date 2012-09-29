@@ -3,14 +3,14 @@
 <package >
   <metadata>
     <id>ScenarioObjects</id>
-    <version>1.0.0.4</version>
+    <version>1.0.0.5</version>
     <title>ScenarioObjects</title>
     <authors>Lance Hilliard</authors>
     <owners>Lance Hilliard</owners>
     <projectUrl>https://github.com/lancehilliard/ScenarioObjects</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ScenarioObjects is a spec-writing template for focusing more on behaviors and less on arbitrary values.</description>
-    <releaseNotes>Made the Result field static and upgraded Foo dependency to version 1.0.3.0</releaseNotes>
+    <releaseNotes>Added example Value fields</releaseNotes>
     <copyright>Copyright 2012</copyright>
     <tags></tags>
     <dependencies>
