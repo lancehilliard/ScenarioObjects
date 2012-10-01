@@ -5,3 +5,4 @@
 C:\NuGet\NuGet pack
 C:\NuGet\NuGet push *.nupkg
 del *.nupkg
+pause
