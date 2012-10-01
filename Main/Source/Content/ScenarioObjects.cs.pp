@@ -37,11 +37,14 @@ namespace $rootnamespace$ {
         };
 
         /// <summary>
-        /// Assigns a RhinoMocks-generated Mock to all of ScenarioObject's
+        /// Assigns a generated Mock to all of ScenarioObject's
         /// protected field variables ending in "Fake".
         /// </summary>
         static void AssignFakes() {
-            Foo.AssignFakes<ScenarioObjects>(FakeMaker<MockRepository>.Make);
+            Foo.AssignFakes<ScenarioObjects>(FakeMaker.MakeRhinoMocksFake);
+            // Foo.AssignFakes<ScenarioObjects>(FakeMaker.MakeMoqFake); // be sure to add Moq to your project before using this line
+            // Foo.AssignFakes<ScenarioObjects>(FakeMaker.MakeFakeItEasyFake); // be sure to add FakeItEasy to your project before using this line
+            // Foo.AssignFakes<ScenarioObjects>(FakeMaker.MakeNSubstituteFake); // be sure to add NSubstitute to your project before using this line
         }
 
         /// <summary>
