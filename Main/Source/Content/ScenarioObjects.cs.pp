@@ -2,7 +2,6 @@
 using ArbitraryValues;
 using ArbitraryValues.FakeMakers;
 using Machine.Specifications;
-using Rhino.Mocks;
 
 namespace $rootnamespace$ {
     /// <summary>
